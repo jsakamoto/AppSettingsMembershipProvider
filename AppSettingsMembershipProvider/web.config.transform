@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <appSettings>
+  <!--
+
+    Set up membership user account here.
+    <add key="User.{username}" value="[{hash algorithm, "sha1", "md5"}:[{salt}:]]{hash of password}" />
+    
+    Exapmle: user name and password is "foo"/"bar"
+    
+    Case 1) If hash algorithm missing, use "sha1". "62cdb7..." is sha1 hash of "bar".
+    <add key="User.foo" value="62cdb7020ff920e5aa642c3d4066950dd1f01f4d" />
+    
+    Case 2) Using "md5", but no salt. "37b51d..." is md5 hash of "bar".
+    <add key="User.foo" value="md5:37b51d194a7513e45b56f6524f2d51f2" />
+    
+    Case 3) "2058a..." is md5 hash of "boo:bar".
+    <add key="User.foo" value="md5:boo:2058a0df9e5b5cb970a1c8d7783a8ec8" />
+    
+    -->
+  </appSettings>
+  <system.web>
+    <membership defaultProvider="appSettings">
+      <providers>
+        <clear />
+        <add name="appSettings" type="Toolbelt.Web.AppSettingsMembershipProvider,AppSettingsMembershipProvider" />
+      </providers>
+    </membership>
+  </system.web>
+</configuration>
