@@ -39,9 +39,9 @@ After installation, you should configure appSettings.
 
 ### Syntax of appSettings entry / 構文
 
-key="User.*{username}*" value="*[{hash algorithm, "sha1", "md5"}*:*[{salt}*:*]]{hash of password}*"
+key="User. *{username}* " value=" *[{hash algorithm, "sha1", "md5"}* : *[{salt}* : *]] {hash of password}* "
 
-key="User.*{ユーザー名}*" value="*[{ハッシュアルゴリズム, "sha1", "md5"}*:*[{ソルト}*:*]]{パスワードのハッシュ値}*"
+key="User. *{ユーザー名}* " value=" *[{ハッシュアルゴリズム, "sha1", "md5"}* : *[{ソルト}* : *]] {パスワードのハッシュ値}* "
     
 ### Exapmle: user name and password is "foo" and "bar" / 例: ユーザー名とパスワードが "foo" と "bar"
     
