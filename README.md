@@ -87,3 +87,83 @@ This provider **does not** provide follows functions.
 - ユーザーの作成、削除、更新、承認、ロックアウト
 - パスワードの変更、パスワードヒント
 - 等々
+
+## But I need to build login page, do not me? / しかしログインページは作る必要がありますね?
+
+You have some choice, one of the alternate way is using HTTP Basic Authentication by ["HttpAuthenticationModule"](https://httpauthmod.codeplex.com/).
+
+"HttpAuthenticationModule" による HTTP 基本認証を使うことができます。
+
+So you can represent Basic Athentication dialog for login witch provided by web browser instead of login page whice you have to build. 
+
+ログインページを作る代わりに、Webブラウザの基本認証ダイアログを表示させることができます。
+
+At first, you should install "HttpAuthenticationModule" in NuGet package console. 
+
+まずはじめに、NuGetパッケージコンソールから "HttpAuthenticationModule" をインストールします。
+
+    PM>Install-Package HttpAuthenticationModule
+
+Next, you should configure the httpAuth section at web.config to use membership provider to validate user.
+
+次にユーザーの検証のためにメンバシッププロバイダを使うよう web.config の httpAuth セクションを構成します。
+
+    <httpAuth mode="Basic" realm="Secret">
+      <credentials source="MembershipProvider"/>
+    </httpAuth>
+
+At last, you should configure authorization section to reject anonymous user access.
+
+最後に、匿名ユーザーからのアクセスを拒否するよう、web.config の authorization セクションを構成します。
+
+    <system.web>
+      ...
+      <authorization>
+        <deny users="?" />
+      </authorization>
+    </system.web>
+
+Then user can authenticate by HTTP Basci Autentication dialog.
+
+これでユーザーは HTTP 基本認証ダイアログによって認証可能となります。
+
+![figure.3](https://raw.github.com/jsakamoto/AppSettingsMembershipProvider/master/content/fig03.PNG)
+
+## Basic auth? Is it safety? / 基本認証? それは安全ですか?
+
+Of course, HTTP Basic Authentication trafic contains plain text password.
+
+もちろん、HTTP 基本認証は通信に平文のパスワードを含みます。
+
+But you can chose HHTPS protocol on Windows Azure Websites or AppHarbor. If you use HTTPS protocol then comunication between a browser and a server is encrypted, so this is enugh secure.
+
+しかしあなたは、Windows Azure Websites または AppHarbor で HTTPS プロトコルを使う選択肢があります。もしブラウザとサーバー間の通信に HTTPS プロトコルを使えば、暗号化されて対話するのでじゅうぶん安全です。
+
+You don't have to anything to HTTPS access, You only change the url of the app to access from "http:..." to "https:...".
+
+HTTPS でアクセスするのに何かをする必要はありません、単にそのアプリへのアクセスの URL を "http:..." から "https:..." に変えるだけです。
+
+If you want to restrict HTTPS access only, you have a choice to install the ["AppOfflineModule"](https://github.com/jsakamoto/appofflinemodule) via NuGet.
+
+もし HTTPS でのアクセスのみに制限したい場合は、"AppOfflineModule" を使う選択肢があります。
+
+At first you should install AppOfflineModule in NuGet package console.
+
+まずはじめに、NuGetパッケージコンソールから "AppOfflineModule" をインストールします。
+
+    PM>Install-Package AppOfflineModule
+
+Next, you should write some code in Global.asax like a follows:
+
+次に、Global.asax に下記のような少量のコードを書きます。
+
+    protected void Application_Start()
+    {
+        ...
+        AppOfflineModule.Filter.IsEnable = () =>
+            HttpContext.Current.Request.IsSecureConnection == false;
+    }
+
+Then, all access via HTTP, not HTTPS, is reject ( got HTTP 404 Not Found ).
+
+すると、HTTPS ではなく HTTP 経由のアクセスはすべて遮断されます （HTTP 404 Not Found が返ります）。
