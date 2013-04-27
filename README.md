@@ -15,13 +15,14 @@ This provider allows you to store username and password of membership users into
 
 "Windows Azure Websites" or "AppHarbor" can configure variable of appSettings section from dashboard of those PaaS service.
 
-Therefore, **you have no need to build user account administration feature on your web app.**
+Therefore, **you have no need to build user account administration feature on your web app.**  
 The dashborad of PaaS service became user account administration page for your app.
+
+![figure.1](https://raw.github.com/jsakamoto/AppSettingsMembershipProvider/master/content/fig01.PNG)
 
 "Windows Azure Websites" または "AppHarbor" は、その PaaS サービスのダッシュボード上から、appSettings セクションの値を構成できます。
 
-それゆえ、あなたは **ユーザーアカウントの管理機能をあなたのWebアプリケーションの上に実装する必要がなくなります。**
-PaaS サービスのダッシュボードがあなたのアプリケーションのユーザーアカウント管理ページになります。
+それゆえ、あなたは **ユーザーアカウントの管理機能をあなたのWebアプリケーションの上に実装する必要がなくなります。**   PaaS サービスのダッシュボードがあなたのアプリケーションのユーザーアカウント管理ページになります。
 
 ## How to install? / インストール方法
 
